@@ -60,6 +60,8 @@ error_log("----- ImageMessageHandler::handle()");
         unlink($tmpfilePath);
         $filePath = $tmpfilePath . '.jpg';
         $filename = basename($filePath);
+error_log("----- " . $filePath);
+error_log("----- " . $filename);
 
         $fh = fopen($filePath, 'x');
 if ($fh==FALSE) {
