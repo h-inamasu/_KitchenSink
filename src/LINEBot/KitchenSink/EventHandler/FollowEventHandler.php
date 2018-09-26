@@ -46,6 +46,6 @@ class FollowEventHandler implements EventHandler
 
     public function handle()
     {
-        $this->bot->replyText($this->followEvent->getReplyToken(), 'Got followed event%0D%0ABONZO');
+        $this->bot->replyText($this->followEvent->getReplyToken(), 'Got followed event\\nBONZO');
     }
 }
