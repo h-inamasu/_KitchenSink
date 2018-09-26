@@ -61,6 +61,9 @@ class ImageMessageHandler implements EventHandler
         $filename = basename($filePath);
 
         $fh = fopen($filePath, 'x');
+if ($fh==FALSE) {
+error_log("----- fopen failed");
+}
         fwrite($fh, $image);
         fclose($fh);
 
