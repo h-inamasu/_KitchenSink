@@ -46,10 +46,15 @@ class FollowEventHandler implements EventHandler
 
     public function handle()
     {
-        $this->bot->replyText($this->followEvent->getReplyToken(),
-                              "お友達登録ありがとうございます\n",
-                              "Extra 1\n",
-                              "Extra 2^n");
+        $message="お友達登録ありがとうございます\n" .
+                 "いつでもお気軽にお問い合わせメッセージをお送りください！\n" .
+                 "シューワのお水をご利用中のお客様は\n" .
+                 "■お客様番号（チラシに記載の番号）\n" .
+                 "このメッセージにお送りください！\n" .
+                 "お送り頂いた方にはもれなくお水12ℓ一本プレゼント！\n" .
+                 "みなさまのご返信おまちしております";
+
+        $this->bot->replyText($this->followEvent->getReplyToken(),$message);
 //        $this->bot->replyText($this->followEvent->getReplyToken(),"お友達登録ありがとうございます");
 //        $this->bot->replyText($this->followEvent->getReplyToken(),'いつでもお気軽にお問い合わせメッセージをお送りください！');
 //        $this->bot->replyText($this->followEvent->getReplyToken(),'シューワのお水をご利用中のお客様は');
