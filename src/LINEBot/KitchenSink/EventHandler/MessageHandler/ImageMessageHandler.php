@@ -52,6 +52,7 @@ class ImageMessageHandler implements EventHandler
 
     public function handle()
     {
+error_log("----- ImageMessageHandler::handle()");
         $contentId = $this->imageMessage->getMessageId();
         $image = $this->bot->getMessageContent($contentId)->getRawBody();
 
