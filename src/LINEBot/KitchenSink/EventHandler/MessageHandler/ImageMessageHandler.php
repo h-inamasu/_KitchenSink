@@ -77,5 +77,6 @@ error_log("----- fopen failed");
         // NOTE: You should pass the url of small image to `previewImageUrl`.
         // This sample doesn't treat that.
         $this->bot->replyMessage($replyToken, new ImageMessageBuilder($url, $url));
+error_log("+++++ ImageMessageHandler::handle()");
     }
 }
