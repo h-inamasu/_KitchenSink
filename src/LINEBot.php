@@ -108,6 +108,7 @@ class LINEBot
     public function replyText($replyToken, $text, ...$extraTexts)
     {
         $textMessageBuilder = new TextMessageBuilder($text, ...$extraTexts);
+error_log("----- " . $textMesageBuilder->buildMessage());
         return $this->replyMessage($replyToken, $textMessageBuilder);
     }
 
