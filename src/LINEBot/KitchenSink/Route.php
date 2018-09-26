@@ -119,9 +119,9 @@ class Route
                     continue;
                 }
 
-error_log("Before $handler->handle()");
+error_log("Before handler->handle()");
                 $handler->handle();
-error_log("After $handler->handle()");
+error_log("After handler->handle()");
             }
 
             $res->write('OK');
