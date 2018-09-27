@@ -48,6 +48,7 @@ class FollowEventHandler implements EventHandler
     {
         $code='10008d';
         $bin=hex2bin(str_repeat('0',8-strlen($code)) . $code);
+error_log("++++++++++++++++++++++++++++++++++");
         $emotion=mb_convert_encoding($bin,'UTF-8','UTF-32BE');
 error_log("----------------------------------");
         $this->bot->replyText($this->followEvent->getReplyToken(),$emotion);
