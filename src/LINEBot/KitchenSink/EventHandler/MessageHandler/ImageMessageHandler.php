@@ -52,7 +52,6 @@ class ImageMessageHandler implements EventHandler
 
     public function handle()
     {
-error_log("----- ImageMessageHandler::handle()");
         $contentId = $this->imageMessage->getMessageId();
         $image = $this->bot->getMessageContent($contentId)->getRawBody();
 
@@ -60,13 +59,8 @@ error_log("----- ImageMessageHandler::handle()");
         unlink($tmpfilePath);
         $filePath = $tmpfilePath . '.jpg';
         $filename = basename($filePath);
-error_log("----- " . $filePath);
-error_log("----- " . $filename);
 
         $fh = fopen($filePath, 'x');
-if ($fh==FALSE) {
-error_log("----- fopen failed");
-}
         fwrite($fh, $image);
         fclose($fh);
 
@@ -77,6 +71,5 @@ error_log("----- fopen failed");
         // NOTE: You should pass the url of small image to `previewImageUrl`.
         // This sample doesn't treat that.
         $this->bot->replyMessage($replyToken, new ImageMessageBuilder($url, $url));
-error_log("+++++ ImageMessageHandler::handle()");
     }
 }

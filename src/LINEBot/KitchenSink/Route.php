@@ -30,13 +30,13 @@ use LINE\LINEBot\Event\MessageEvent\ImageMessage;
 use LINE\LINEBot\Event\MessageEvent\LocationMessage;
 use LINE\LINEBot\Event\MessageEvent\StickerMessage;
 use LINE\LINEBot\Event\MessageEvent\TextMessage;
+use LINE\LINEBot\Event\MessageEvent\UnknownMessage;
 use LINE\LINEBot\Event\MessageEvent\VideoMessage;
 use LINE\LINEBot\Event\PostbackEvent;
 use LINE\LINEBot\Event\UnfollowEvent;
+use LINE\LINEBot\Event\UnknownEvent;
 use LINE\LINEBot\Exception\InvalidEventRequestException;
 use LINE\LINEBot\Exception\InvalidSignatureException;
-use LINE\LINEBot\Exception\UnknownEventTypeException;
-use LINE\LINEBot\Exception\UnknownMessageTypeException;
 use LINE\LINEBot\KitchenSink\EventHandler\BeaconEventHandler;
 use LINE\LINEBot\KitchenSink\EventHandler\FollowEventHandler;
 use LINE\LINEBot\KitchenSink\EventHandler\JoinEventHandler;
@@ -71,10 +71,6 @@ class Route
             } catch (InvalidSignatureException $e) {
                 $logger->info('Invalid signature');
                 return $res->withStatus(400, 'Invalid signature');
-            } catch (UnknownEventTypeException $e) {
-                return $res->withStatus(400, 'Unknown event type has come');
-            } catch (UnknownMessageTypeException $e) {
-                return $res->withStatus(400, 'Unknown message type has come');
             } catch (InvalidEventRequestException $e) {
                 return $res->withStatus(400, "Invalid event request");
             }
@@ -84,53 +80,53 @@ class Route
                 $handler = null;
 
                 if ($event instanceof MessageEvent) {
-error_log("----- MessageEvent");
                     if ($event instanceof TextMessage) {
-error_log("      TextMessage");
                         $handler = new TextMessageHandler($bot, $logger, $req, $event);
                     } elseif ($event instanceof StickerMessage) {
-error_log("      StickerMessage");
                         $handler = new StickerMessageHandler($bot, $logger, $event);
                     } elseif ($event instanceof LocationMessage) {
-error_log("      LocationMessage");
                         $handler = new LocationMessageHandler($bot, $logger, $event);
                     } elseif ($event instanceof ImageMessage) {
-error_log("      ImageMessage");
                         $handler = new ImageMessageHandler($bot, $logger, $req, $event);
                     } elseif ($event instanceof AudioMessage) {
-error_log("      AudioMessage");
                         $handler = new AudioMessageHandler($bot, $logger, $req, $event);
                     } elseif ($event instanceof VideoMessage) {
-error_log("      VideoMessage");
                         $handler = new VideoMessageHandler($bot, $logger, $req, $event);
+                    } elseif ($event instanceof UnknownMessage) {
+                        $logger->info(sprintf(
+                            'Unknown message type has come [message type: %s]',
+                            $event->getMessageType()
+                        ));
                     } else {
-error_log("      Unknow message type");
-                        // Just in case...
-                        $logger->info('Unknown message type has come');
+                        // Unexpected behavior (just in case)
+                        // something wrong if reach here
+                        $logger->info(sprintf(
+                            'Unexpected message type has come, something wrong [class name: %s]',
+                            get_class($event)
+                        ));
                         continue;
                     }
                 } elseif ($event instanceof UnfollowEvent) {
-error_log("----- UnfollowEvent");
                     $handler = new UnfollowEventHandler($bot, $logger, $event);
                 } elseif ($event instanceof FollowEvent) {
-error_log("----- FollowEvent");
                     $handler = new FollowEventHandler($bot, $logger, $event);
                 } elseif ($event instanceof JoinEvent) {
-error_log("----- JoinEvent");
                     $handler = new JoinEventHandler($bot, $logger, $event);
                 } elseif ($event instanceof LeaveEvent) {
-error_log("----- LeaveEvent");
                     $handler = new LeaveEventHandler($bot, $logger, $event);
                 } elseif ($event instanceof PostbackEvent) {
-error_log("----- PostbackEvent");
                     $handler = new PostbackEventHandler($bot, $logger, $event);
                 } elseif ($event instanceof BeaconDetectionEvent) {
-error_log("----- BeaconDetectionEvent");
                     $handler = new BeaconEventHandler($bot, $logger, $event);
+                } elseif ($event instanceof UnknownEvent) {
+                    $logger->info(sprintf('Unknown message type has come [type: %s]', $event->getType()));
                 } else {
-error_log("----- Unknown event type");
-                    // Just in case...
-                    $logger->info('Unknown event type has come');
+                    // Unexpected behavior (just in case)
+                    // something wrong if reach here
+                    $logger->info(sprintf(
+                        'Unexpected event type has come, something wrong [class name: %s]',
+                        get_class($event)
+                    ));
                     continue;
                 }
 
