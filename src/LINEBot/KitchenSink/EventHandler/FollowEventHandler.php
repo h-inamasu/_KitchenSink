@@ -62,7 +62,7 @@ error_log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
         $content=mb_convert_encoding($bin,'UTF-8','UTF-32BE');
 error_log("==========================================");
         $message="お友達登録ありがとうございます".$moonGrin."\n" .
-                 "いつでもお気軽にお問い合わせメッセージをお送りください！".$hahaha.\n".
+                 "いつでもお気軽にお問い合わせメッセージをお送りください！".$hahaha."\n".
                  "シューワのお水をご利用中のお客様は\n" .
                  "■お客様番号（チラシに記載の番号）\n" .
                  "このメッセージにお送りください！\n" .
