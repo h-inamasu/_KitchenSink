@@ -49,6 +49,7 @@ class FollowEventHandler implements EventHandler
         $code='10008d';
         $bin=hex2bin(str_repeat('0',8-strlen($code)) . $code);
         $emotion=mb_convert_encoding($bin,'UTF-8','UTF-32BE');
+error_log("----------------------------------");
         $this->bot->replyText($this->followEvent->getReplyToken(),$emotion);
 /*
         $message="お友達登録ありがとうございます\n" .
