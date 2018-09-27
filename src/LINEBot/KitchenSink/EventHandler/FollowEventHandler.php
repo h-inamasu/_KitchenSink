@@ -49,12 +49,15 @@ class FollowEventHandler implements EventHandler
         $code='10008d';
         $bin=hex2bin(str_repeat('0',8-strlen($code)).$code);
         $moonGrin=mb_convert_encoding($bin,'UTF-8','UTF-32BE');
+error_log("******************************************");
         $code='100079';
         $bin=hex2bin(str_repeat('0',8-strlen($code)).$code);
         $hahaha=mb_convert_encoding($bin,'UTF-8','UTF-32BE');
+error_log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
         $code='100090';
         $bin=hex2bin(str_repeat('0',8-strlen($code)).$code);
         $content=mb_convert_encoding($bin,'UTF-8','UTF-32BE');
+error_log("==========================================");
         $message="お友達登録ありがとうございます".$moonGrin."\n" .
                  "いつでもお気軽にお問い合わせメッセージをお送りください！".$hahaha.\n".
                  "シューワのお水をご利用中のお客様は\n" .
