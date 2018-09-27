@@ -47,21 +47,22 @@ class FollowEventHandler implements EventHandler
     public function handle()
     {
         $code='10008d';
-        $bin=hex2bin(str_repeat('0',8-strlen($code)) . $code);
-error_log("++++++++++++++++++++++++++++++++++");
-        $emotion=mb_convert_encoding($bin,'UTF-8','UTF-32BE');
-error_log("----------------------------------");
-        $this->bot->replyText($this->followEvent->getReplyToken(),$emotion);
-/*
-        $message="お友達登録ありがとうございます\n" .
-                 "いつでもお気軽にお問い合わせメッセージをお送りください！\n" .
+        $bin=hex2bin(str_repeat('0',8-strlen($code)).$code);
+        $moonGrin=mb_convert_encoding($bin,'UTF-8','UTF-32BE');
+        $code='100079';
+        $bin=hex2bin(str_repeat('0',8-strlen($code)).$code);
+        $hahaha=mb_convert_encoding($bin,'UTF-8','UTF-32BE');
+        $code='100090';
+        $bin=hex2bin(str_repeat('0',8-strlen($code)).$code);
+        $content=mb_convert_encoding($bin,'UTF-8','UTF-32BE');
+        $message="お友達登録ありがとうございます".$moonGrin."\n" .
+                 "いつでもお気軽にお問い合わせメッセージをお送りください！".$hahaha.\n".
                  "シューワのお水をご利用中のお客様は\n" .
                  "■お客様番号（チラシに記載の番号）\n" .
                  "このメッセージにお送りください！\n" .
                  "お送り頂いた方にはもれなくお水12ℓ一本プレゼント！\n" .
-                 "みなさまのご返信おまちしております";
+                 "みなさまのご返信おまちしております".$content;
 
         $this->bot->replyText($this->followEvent->getReplyToken(),$message);
-*/
     }
 }
