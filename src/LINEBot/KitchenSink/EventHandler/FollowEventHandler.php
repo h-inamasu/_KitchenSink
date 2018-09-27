@@ -46,8 +46,12 @@ class FollowEventHandler implements EventHandler
 
     public function handle()
     {
-        $moonGrin=mb_convert_encodeing(0x0010008d,'UTF-8','UTF-32BE');
-        $message="お友達登録ありがとうございます" . $moonGrin . "\n" .
+        $code='10008d';
+        $bin=hex2bin(str_repeat('0',8-strlen($code)) . $code);
+        $emotion=mb_convert_encoding($bin,'UTF-8','UTF-32BE');
+        $this->bot->replyText($this->followEvent->getReplyToken(),$emotion);
+/*
+        $message="お友達登録ありがとうございます\n" .
                  "いつでもお気軽にお問い合わせメッセージをお送りください！\n" .
                  "シューワのお水をご利用中のお客様は\n" .
                  "■お客様番号（チラシに記載の番号）\n" .
@@ -56,5 +60,6 @@ class FollowEventHandler implements EventHandler
                  "みなさまのご返信おまちしております";
 
         $this->bot->replyText($this->followEvent->getReplyToken(),$message);
+*/
     }
 }
