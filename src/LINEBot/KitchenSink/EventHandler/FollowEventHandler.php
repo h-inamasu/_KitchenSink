@@ -46,6 +46,7 @@ class FollowEventHandler implements EventHandler
 
     public function handle()
     {
+error_log("FollowEventHandler::handle()");
         $code='10008d';
 error_log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         $bin=hex2bin(str_repeat('0',8-strlen($code)).$code);
