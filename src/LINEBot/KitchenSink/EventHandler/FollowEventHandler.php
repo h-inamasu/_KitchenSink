@@ -46,7 +46,8 @@ class FollowEventHandler implements EventHandler
 
     public function handle()
     {
-        $message="お友達登録ありがとうございます\n\x00\x10\x00\x8d" .
+        $moonGrin=mb_convert_encodeing(0x0010008d,'UTF-8','UTF-32BE');
+        $message="お友達登録ありがとうございます" . $moonGrin . "\n" .
                  "いつでもお気軽にお問い合わせメッセージをお送りください！\n" .
                  "シューワのお水をご利用中のお客様は\n" .
                  "■お客様番号（チラシに記載の番号）\n" .
